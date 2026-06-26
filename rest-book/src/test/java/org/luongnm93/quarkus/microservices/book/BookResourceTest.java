@@ -5,16 +5,26 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.startsWith;
 
 @QuarkusTest
 class BookResourceTest {
     @Test
-    void testHelloEndpoint() {
+    void shouldCreateABook() {
         given()
-          .when().get("/api/books")
-          .then()
-             .statusCode(200)
-             .body(is("Hello RESTEasy"));
+            .formParam("title", "Understanding Quarkus")
+            .formParam("author", "Luongnm")
+            .formParam("year", "2020")
+            .formParam("genre", "IT")
+        .when()
+            .post("/api/books")
+        .then()
+            .statusCode(201)
+            .body("title", is("Understanding Quarkus"))
+            .body("author", is("Luongnm"))
+            .body("year_of_publication", is(2020))
+            .body("genre", is("IT"))
+            .body("isbn_13", startsWith("13-"));
     }
 
 }
