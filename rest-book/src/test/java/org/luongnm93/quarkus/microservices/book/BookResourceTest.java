@@ -24,7 +24,7 @@ class BookResourceTest {
             .body("author", is("Luongnm"))
             .body("year_of_publication", is(2020))
             .body("genre", is("IT"))
-            .body("isbn_13", startsWith("13-"));
+            .body("isbn_13", startsWith("13-Mock"));
     }
 
 }
